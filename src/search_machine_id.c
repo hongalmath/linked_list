@@ -1,0 +1,36 @@
+#include "main.h"
+void search_machine_by_id(void)
+{
+	if (!plant_head)
+	{
+		printf("No plants available\n");
+		return;
+	}
+
+	int machine_id;
+	printf("Enter Machine ID to search: ");
+	scanf("%d", &machine_id);
+
+	struct plant *p = plant_head;
+	while (p)
+	{
+		struct eagle *m = p->machine_head;
+		while (m)
+		{
+			if (m->machine_id == machine_id)
+			{
+				printf("\n--- Machine Found ---\n");
+				printf("Machine ID: %d\n", m->machine_id);
+				printf("Machine Name: %s\n", m->machine_name);
+				printf("Production: %d\n", m->production);
+				printf("Belongs to Plant: %s (%d)\n", p->plant_name, p->plant_id);
+				return;
+			}
+			m = m->link;
+		}
+		p = p->link;
+	}
+
+	printf("Machine with ID %d not found\n", machine_id);
+}
+
